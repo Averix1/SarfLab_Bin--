@@ -1,71 +1,66 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Averix Güncelleme</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      background: #1a1a1a; /* Koyu arka plan */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SarfLab Binâ</title>
 
-    .update-box {
-      background: #333; /* Koyu gri kutu */
-      border-radius: 12px;
-      padding: 40px 60px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      text-align: center;
-      max-width: 400px;
-    }
+<link rel="stylesheet" href="css/style.css">
 
-    .update-box h1 {
-      color: #ff6a00; /* Turuncu Averix */
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-
-    .update-box p {
-      color: #ffffff; /* Beyaz yazı */
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    .thank-you {
-      color: #ffffff; /* Beyaz yazı */
-      font-size: 14px;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-
-    .loader {
-      border: 6px solid #555; /* Açık gri */
-      border-top: 6px solid #ff6a00; /* Turuncu dönme efekti */
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      margin: 0 auto;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-  </style>
+<link rel="icon" href="icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icon-180x180.png">
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <div class="update-box">
-    <h1>Averix</h1>
-    <p>Daha iyi yanıt almanız için sitemiz güncelleniyor.</p>
-    <div class="thank-you">Bizi tercih ettiğiniz için teşekkür ederiz.</div>
-    <div class="loader"></div>
-  </div>
+
+<!-- ===== Splash Screen ===== -->
+<div id="splash">
+    <div class="splash-content">
+        <span id="sarf">SarfLab</span>
+        <span id="bina">Binâ</span>
+    </div>
+</div>
+
+<header>SarfLab Binâ</header>
+
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="Kelime yaz (örn: كَتَبَ , قَرَأَ , فَتَحَ)">
+</div>
+
+<div id="wordBox"></div>
+
+<button id="installBtn" style="
+  padding: 12px 20px;
+  background:#004b6b;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:18px;
+  display:none;
+">
+  Uygulamayı İndir
+</button>
+
+<script src="js/app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js")
+    .then(() => console.log("SW kayıt edildi"));
+}
+
+let installEvent;
+const btn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  installEvent = e;
+  btn.style.display = "block";
+});
+
+btn.addEventListener("click", () => {
+  btn.style.display = "none";
+  installEvent.prompt();
+});
+</script>
 </body>
 </html>
