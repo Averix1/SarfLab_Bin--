@@ -4,16 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SarfLab Binâ</title>
-
 <link rel="stylesheet" href="css/style.css">
-
-<link rel="icon" href="icon-32x32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="icon-180x180.png">
-<link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-<!-- ===== Splash Screen ===== -->
 <div id="splash">
     <div class="splash-content">
         <span id="sarf">SarfLab</span>
@@ -24,43 +18,11 @@
 <header>SarfLab Binâ</header>
 
 <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Kelime yaz (örn: كَتَبَ , قَرَأَ , فَتَحَ)">
+    <input type="text" id="searchInput" placeholder="Kelime yaz (örn: كَتَبَ)">
 </div>
 
 <div id="wordBox"></div>
 
-<button id="installBtn" style="
-  padding: 12px 20px;
-  background:#004b6b;
-  color:white;
-  border:none;
-  border-radius:10px;
-  font-size:18px;
-  display:none;
-">
-  Uygulamayı İndir
-</button>
-
 <script src="js/app.js"></script>
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js")
-    .then(() => console.log("SW kayıt edildi"));
-}
-
-let installEvent;
-const btn = document.getElementById("installBtn");
-
-window.addEventListener("beforeinstallprompt", e => {
-  e.preventDefault();
-  installEvent = e;
-  btn.style.display = "block";
-});
-
-btn.addEventListener("click", () => {
-  btn.style.display = "none";
-  installEvent.prompt();
-});
-</script>
 </body>
 </html>
